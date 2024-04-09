@@ -1,0 +1,60 @@
+## i18n
+
+The `i18n_msg_manage` function is a helper function for retrieving messages from the message catalog using the `MessageCatalog` class.
+
+### Parameters
+
+- `code`: The code of the message to retrieve.
+- `language`: The language code (e.g., `'en'`, `'es'`) specifying the language of the message to retrieve.
+
+### Message Catalogs
+
+Message catalogs are JSON files containing key-value pairs where the keys represent message codes and the values represent the corresponding messages in the specified language.
+
+### Automatic i18n Directory Detection
+
+Automatically detects the i18n directory within the project's directory structure. If found, it loads the catalog file corresponding to the specified language.
+
+#### Example Message Catalogs
+
+**English (en.json):**
+
+```json
+{
+    "NOT_FOUND": "Not found",
+    "SUCCESS_LOGIN": "Success Login"
+}
+```
+
+**Spanish (es.json):**
+
+```json
+{
+    "NOT_FOUND": "No hemos podido encontrarlo",
+    "SUCCESS_LOGIN": "Inicio de Sesión satisfactorio"
+}
+```
+
+```javascript
+// app.js
+const express = require('express');
+const { i18n_msg_manage } = require('apiutils.js');
+
+const app = express();
+
+app.use((req, res, next) => {
+  req.headers.lng = req.headers['accept-language'] || 'en';
+  next();
+});
+
+app.get('/users', (req, res) => {
+  res.status(404).json({
+    msg: i18n_msg_manage(req.headers.lng, 'NOT_FOUND')
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server running in port 3000');
+});
+```
+

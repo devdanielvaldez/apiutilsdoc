@@ -1,0 +1,32 @@
+# Refresh Token
+
+This function generates a new JWT (JSON Web Token) using the payload extracted from the provided token and the specified certificate path.
+
+## Parameters
+
+- `token`: The JWT to extract the payload from and use for generating the new token.
+
+## Returns
+
+- A new JWT generated with the same payload as the original token.
+
+If successful:
+- Returns a new JWT.
+
+If an error occurs:
+- Throws an error indicating the issue encountered during token refresh.
+
+## Example
+
+```javascript
+const { refreshToken } = require('apiutils.js');
+
+const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjE3MjU0OTQzLCJleHAiOjE2MTcyNTQ5NDN9.g3EIE-w06rB_5p6Ir2sZ3KJjY8w7VvcdgZqs0N2GX0uTLerNQJoIzRk3YQK8t8Zs';
+
+try {
+  const newToken = refreshToken(token);
+  console.log(newToken);
+} catch (error) {
+  console.error(error.message);
+}
+```

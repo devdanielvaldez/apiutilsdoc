@@ -1,0 +1,37 @@
+# Token Middleware Auth
+
+This middleware function is used for handling authentication using JSON Web Tokens (JWTs). It extracts the token from either the request headers or query parameters, verifies its validity, and attaches the decoded payload to the request object for use in subsequent route handlers.
+
+## Returns
+
+- A middleware function to be used with Express routes.
+
+## Functionality
+
+1. **getTokenFromHeaders(req)**: Extracts the JWT from the 'Authorization' header of the request.
+2. **getTokenFromQuery(req)**: Extracts the JWT from the query parameters of the request.
+3. **identifyTokenSource(req)**: Identifies the source of the token (headers or query).
+
+## Example
+
+```javascript
+const express = require('express');
+const { middlewareToken } = require('apiutils.js');
+
+const app = express();
+
+// Use token middleware for authentication
+app.use(middlewareToken());
+
+// Protected route
+app.get('/protected', (req, res) => {
+  const { authPayload } = req;
+  res.json({ message: 'Protected route', user: authPayload });
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+```

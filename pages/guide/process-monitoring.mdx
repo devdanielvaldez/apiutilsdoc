@@ -1,0 +1,44 @@
+## Process Monitoring Middleware
+
+The `processMonitoring` middleware provides real-time monitoring of the server's CPU and memory usage, as well as request processing time.
+
+### Parameters
+
+- `req`: The request object.
+- `res`: The response object.
+- `next`: The next middleware function in the request-response cycle.
+
+### Description
+
+The `processMonitoring` middleware logs the following information:
+
+- Process start time, including request method and URL.
+- Total number of requests processed.
+- CPU usage (user and system times).
+- Memory usage (total and free memory).
+- Process finish time, including request method and URL.
+- Elapsed time for request processing.
+
+### Example Usage
+
+```javascript
+const express = require('express');
+const { processMonitoring } = require('apiutils.js');
+
+const app = express();
+
+// Middleware to monitor process
+app.use(processMonitoring);
+
+// Your routes and application logic here...
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+```
+
+### Notes
+
+- The middleware uses Node.js built-in modules `os` and `perf_hooks` to gather system and performance metrics.
+- The monitoring interval is set to every 5 seconds (5000 milliseconds) by default, but this can be adjusted as needed.
+- Ensure to place the `processMonitoring` middleware before your route handlers to monitor each incoming request.

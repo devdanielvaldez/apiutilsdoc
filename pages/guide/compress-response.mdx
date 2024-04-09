@@ -1,0 +1,36 @@
+## Response Compression Middleware
+
+The `compressResponse` middleware compresses the response body using Gzip compression if the client supports it.
+
+### Parameters
+
+- `req`: The request object.
+- `res`: The response object.
+- `next`: The next middleware function in the request-response cycle.
+
+### Description
+
+The `compressResponse` middleware checks if the client accepts Gzip encoding. If accepted, it sets the `Content-Encoding` header to `gzip` and compresses the response body using Gzip compression.
+
+### Example Usage
+
+```javascript
+const express = require('express');
+const { compressResponse } = require('apiutils.js');
+
+const app = express();
+
+// Middleware to compress response
+app.use(compressResponse);
+
+// Your routes and application logic here...
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+```
+
+### Notes
+
+- Ensure to place the `compressResponse` middleware before your route handlers to compress outgoing responses.
+- Gzip compression can significantly reduce the size of the response body, improving network performance and reducing bandwidth usage for clients that support it.

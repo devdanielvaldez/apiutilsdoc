@@ -1,0 +1,29 @@
+# Generate Token
+
+This function generates a JSON Web Token (JWT) using the RS256 algorithm with the provided payload, signing it with the private key located at the specified certificate path.
+
+## Parameters
+
+- `payload`: The payload to be included in the token.
+- `expiresIn` (optional): The expiration time of the token. Defaults to '1H' (1 hour).
+  Format: a number followed by one of 'S', 'MI', 'H', 'D', 'M', or 'Y' for seconds, minutes, hours, days, months, or years respectively.
+
+## Returns
+
+An object containing the generated JWT token.
+
+## Example
+
+```javascript
+const { generateToken } = require('apiutils.js');
+
+const payload = { userId: '12345', role: 'admin' };
+const token = generateToken(payload, '2H');
+
+console.log(token);
+```
+
+## Error Handling
+
+- Throws an error if the password or hashed password is not provided as a non-empty string.
+- Throws an error if the expiry format is invalid.

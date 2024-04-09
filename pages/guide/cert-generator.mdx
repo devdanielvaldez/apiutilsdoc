@@ -1,0 +1,39 @@
+### Certificate Generator
+
+The `generateCert` module provides a function for generating RSA key pairs and saving them as certificate files. These certificates are essential for signing authentication tokens, ensuring secure communication between the server and clients.
+
+#### Features
+
+- **RSA Key Pair Generation**: Generates RSA key pairs with a modulus length of 4096 bits for enhanced security.
+- **Certificate File Creation**: Saves the generated private and public keys as certificate files in the specified directory.
+- **Directory Verification**: Checks if the target directory exists and creates it if not.
+- **Error Handling**: Provides informative console messages and returns an object indicating the success of the certificate generation process.
+
+#### Usage
+
+```javascript
+const { generateCert } = require('apiutils.js');
+
+try {
+  const result = generateCertificate();
+  console.log(result.msg);
+} catch (error) {
+  console.error('Error generating certificate:', error);
+}
+```
+
+#### Return Value
+
+- If the certificate generation is successful, returns an object with the message `"Certificate generated successfully at [certPath]"` and `ok: true`.
+- If the certificate already exists, returns a message indicating that the certificate already exists at the specified path.
+- If any error occurs during the certificate generation process, throws an error with a descriptive message.
+
+#### Certificate Usage
+
+The generated RSA key pair can be used for signing authentication tokens, ensuring secure and tamper-proof communication between the server and clients. The private key is used to sign the tokens, while the public key is used to verify their authenticity.
+
+#### Certificate Files
+
+The generated certificate consists of two files:
+- `cert.pem`: Contains the private key.
+- `cert.pem.pub`: Contains the public key.

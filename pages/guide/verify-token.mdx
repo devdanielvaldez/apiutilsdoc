@@ -1,0 +1,28 @@
+# Verify Token
+
+This function verifies the authenticity and integrity of a JSON Web Token (JWT) using the RS256 algorithm with the provided public key.
+
+## Parameters
+
+- `token`: The JWT to be verified.
+
+## Returns
+
+An object indicating whether the token is valid or not, along with an optional error message.
+
+## Example
+
+```javascript
+const { verifyToken } = require('apiutils.js');
+
+const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjE3MjU0OTQzLCJleHAiOjE2MTcyNTQ5NDN9.g3EIE-w06rB_5p6Ir2sZ3KJjY8w7VvcdgZqs0N2GX0uTLerNQJoIzRk3YQK8t8Zs';
+
+const result = verifyToken(token);
+
+console.log(result);
+```
+
+## Error Handling
+
+- Returns an object with isValid set to false and a message if the token signature is invalid.
+- Returns an object with isValid set to false and a message if the token has expired.
