@@ -1,0 +1,128 @@
+### Schemas Validators
+
+The `schemasValidators` module offers functionality to validate JSON schemas, ensuring data integrity and consistency within your application. This module streamlines the process of defining and enforcing schema validation rules, providing a robust framework for data validation.
+
+#### Features
+
+- **Schema Definition**: Define JSON schemas using YAML files, specifying data types, formats, required fields, and validation rules.
+- **Data Validation**: Validate input data against defined schemas, ensuring that it adheres to the specified structure and constraints.
+- **Error Reporting**: Provides detailed error messages for validation failures, helping developers identify and resolve issues efficiently.
+- **Custom Validation**: Support for custom validation functions, allowing developers to enforce application-specific validation rules.
+
+#### Usage
+
+##### Generate JSON Schema for Validate Body's and Query's
+
+The following code shows the implementation process for the validation of body's and query's in your API requests
+
+##### Generate Schemas
+
+```yaml
+userSchema:
+  type: object
+  properties:
+    username:
+      type: string
+    email:
+      type: string
+      format: email
+    age:
+      type: number
+      minimum: 0
+  required:
+    - username
+    - email
+```
+Run the following command that will be responsible for mapping your .yaml files and generating the schemas
+
+```bash
+npx create-schema
+```
+
+#### Schema Definition
+
+Define schemas in YAML format, specifying data types, formats, required fields, and validation rules. Refer to the documentation for supported schema properties and validation options.
+
+##### Format
+
+- email
+- phone
+- uuid
+- datetime
+- url
+- postal-address
+- postal-code
+- credit-card
+- name
+
+##### Types
+
+- string
+- number
+- object
+- array
+- date
+- custom
+
+#### Validate Body & Query
+
+Body validation middleware with JSON Schema is an essential tool for ensuring the integrity of data received in HTTP requests. Using JSON schemas, this middleware allows you to define the structure and constraints of the expected data in the body of requests, providing an additional layer of security and facilitating automatic validation of incoming data.
+
+##### Main Features
+
+- **Automated Validation**: The middleware automatically validates the data in the request body based on the defined JSON schemas.
+
+- **Bad Data Prevention**: Helps prevent data tampering and ensures that only valid data is accepted according to the schema specifica**tions.
+
+- **Flexible Configuration**: Allows flexible configuration of JSON schemas to fit specific application needs.
+
+- **Clear Error Responses**: In case the data does not meet the schema requirements, clear error responses are generated indicating the problematic fields and validation issues encountered.
+
+##### Usage
+
+To validate body's and query's you must import the modules `validateBodyReq` and `validateQuerysReq`, both of which you must add as middlewares to your route and via params write the name of the schema file that you want to assign to it.
+
+###### Body
+
+```javascript
+// app.js
+const express = require('express');
+const { validateBodyReq } = require('apiutils.js');
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extends: true }))
+
+app.post('/body', validateBodyReq('userSchema'), (req, res) => {
+    console.log(req.body);
+    res.status(200).json({
+        ok: true
+    });
+});
+
+app.listen(3000, () => {
+    console.log('api running');
+});
+```
+
+###### Query
+
+```javascript
+// app.js
+const express = require('express');
+const { validateQuerysReq } = require('apiutils.js');
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extends: true }))
+
+app.get('/query', validateQuerysReq('querySchema'), (req, res) => {
+    res.status(200).json({
+        ok: true
+    });
+});
+
+app.listen(3000, () => {
+    console.log('api running');
+});
+```
