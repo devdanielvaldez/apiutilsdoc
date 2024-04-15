@@ -1,0 +1,37 @@
+# Generate JSON Mocks
+
+The `json-mock` module is a powerful tool designed to generate JSON mocks based on existing JSON schemas. It integrates perfectly with the Schema generation module which you can study at this link [JSON Schema Generator DOC](https://apiutilsdoc.vercel.app/guide/schemas-validators), allowing you to effortlessly create JSON simulations from JSON schemas previously generated from YAML files.
+
+#### Usage
+
+1. **Generate JSON Schemas**: First, use the [JSON Schema Generator](https://apiutilsdoc.vercel.app/guide/schemas-validators) module to generate JSON Schemas based on YAML files.
+
+2. **Create javascript file to generate Mocks**:Create a file to invoke the generation of your Mocks, this can be called whatever you want.
+
+3. **Create JSON Mocks**: Once you have your JSON Schemas ready, you can use the `json-mock` module to generate JSON mocks based on those schemas.
+
+Here's how you can use the module in your code:
+
+```javascript
+// generateMocks.js
+const { generateMocks } = require('apiutils.js');
+
+// Specify the schema name and object length
+const schemaName = 'exampleSchema';
+const objectLength = 5;
+
+// Generate JSON mocks
+generateMocks(schemaName, objectLength);
+```
+
+Remember that the name of the Schema will always be the same name as your schema file. Also remember that your Mocks will always be saved in the same folder where your schemas are located, which `schemas-validators`.
+
+#### Features
+
+- **Automatic Mock Generation**: The module automatically generates JSON mocks based on provided JSON Schemas.
+- **Flexible Configuration**: Customize the number of objects in the generated mocks.
+- **Seamless Integration**: Works seamlessly with the [JSON Schema Generator](https://apiutilsdoc.vercel.app/guide/schemas-validators) module for a streamlined workflow.
+
+#### Dependencies
+
+- `create-schema`: Required for generating JSON Schemas from YAML files.
