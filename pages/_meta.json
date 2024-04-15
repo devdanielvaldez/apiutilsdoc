@@ -3,6 +3,7 @@
   "quickstart": "QuickStart",
   "examples": "Examples",
   "guide": "Guide",
+  "angular": "Angular",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
